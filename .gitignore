@@ -1,0 +1,37 @@
+# General files
+/todo-list-backend/HELP.md
+
+# Maven
+/todo-list-backend/target/
+!/todo-list-backend/.mvn/wrapper/maven-wrapper.jar
+!/todo-list-backend/**/src/main/**/target/
+!/todo-list-backend/**/src/test/**/target/
+
+### STS ###
+/todo-list-backend/.apt_generated
+/todo-list-backend/.classpath
+/todo-list-backend/.factorypath
+/todo-list-backend/.project
+/todo-list-backend/.settings
+/todo-list-backend/.springBeans
+/todo-list-backend/.sts4-cache
+
+### IntelliJ IDEA ###
+/todo-list-backend/.idea
+/todo-list-backend/*.iws
+/todo-list-backend/*.iml
+/todo-list-backend/*.ipr
+
+### NetBeans ###
+/todo-list-backend/nbproject/private/
+/todo-list-backend/nbbuild/
+/todo-list-backend/dist/
+/todo-list-backend/nbdist/
+/todo-list-backend/.nb-gradle/
+/todo-list-backend/build/
+!/todo-list-backend/**/src/main/**/build/
+!/todo-list-backend/**/src/test/**/build/
+
+### VS Code ###
+/todo-list-backend/.vscode/
+
