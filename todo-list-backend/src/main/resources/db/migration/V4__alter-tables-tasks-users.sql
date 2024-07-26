@@ -1,0 +1,11 @@
+ALTER TABLE tasks
+MODIFY COLUMN title VARCHAR(100) NOT NULL,
+MODIFY COLUMN description VARCHAR(300) NOT NULL,
+MODIFY COLUMN due_date DATETIME NOT NULL COMMENT 'Fecha limite para terminar la tarea',
+MODIFY COLUMN status bool NOT NULL COMMENT 'Tarea terminado true, tarea no terminado false',
+MODIFY COLUMN user_id INT NOT NULL;
+
+ALTER TABLE users
+ADD COLUMN email VARCHAR(255) NOT NULL,
+MODIFY COLUMN username VARCHAR(65) NOT NULL,
+MODIFY COLUMN password VARCHAR(100) NOT NULL;
