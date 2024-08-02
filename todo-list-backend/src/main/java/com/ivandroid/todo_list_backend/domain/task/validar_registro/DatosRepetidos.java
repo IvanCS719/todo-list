@@ -3,7 +3,9 @@ package com.ivandroid.todo_list_backend.domain.task.validar_registro;
 import com.ivandroid.todo_list_backend.domain.task.RegistroTaskDTO;
 import com.ivandroid.todo_list_backend.domain.task.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DatosRepetidos implements IValidarRegistro{
 
     @Autowired
