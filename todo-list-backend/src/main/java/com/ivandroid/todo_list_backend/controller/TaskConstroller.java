@@ -6,11 +6,15 @@ import com.ivandroid.todo_list_backend.domain.task.TaskRepository;
 import com.ivandroid.todo_list_backend.domain.task.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/task")
@@ -22,6 +26,7 @@ public class TaskConstroller {
     @Autowired
     private TaskService taskService;
 
+    //Endpoint para registrar una tarea
     @PostMapping
     public ResponseEntity<RespuestaTaskDTO> registrar(@RequestBody @Valid RegistroTaskDTO datos,
                                                       UriComponentsBuilder uriComponentsBuilder){
@@ -34,8 +39,13 @@ public class TaskConstroller {
 
     }
 
+    //Endpoint para mostrar toda las tareas
     @GetMapping
-    public String hola(){
-        return "Hey wey";
+    public ResponseEntity<Page<RespuestaTaskDTO>> obtenerTodo(@PageableDefault(size = 10)Pageable paginacion){
+
+        var listaTaks = taskRepository.findAllByOrderByDueDate(paginacion)
+                .map(RespuestaTaskDTO::new);
+
+        return ResponseEntity.ok(listaTaks);
     }
 }
