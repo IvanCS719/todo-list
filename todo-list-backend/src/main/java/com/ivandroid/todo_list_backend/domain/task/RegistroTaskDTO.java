@@ -15,4 +15,12 @@ public record RegistroTaskDTO(
         @NotNull
         Long userId
 ) {
+        public RegistroTaskDTO(ActualizarTaskDTO datos) {
+                this(
+                        datos.title(),
+                        datos.description(),
+                        datos.dueDate(),
+                        null
+                );
+        }
 }

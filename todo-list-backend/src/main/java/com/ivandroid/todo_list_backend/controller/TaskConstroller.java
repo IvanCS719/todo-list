@@ -1,9 +1,6 @@
 package com.ivandroid.todo_list_backend.controller;
 
-import com.ivandroid.todo_list_backend.domain.task.RegistroTaskDTO;
-import com.ivandroid.todo_list_backend.domain.task.RespuestaTaskDTO;
-import com.ivandroid.todo_list_backend.domain.task.Task;
-import com.ivandroid.todo_list_backend.domain.task.TaskRepository;
+import com.ivandroid.todo_list_backend.domain.task.*;
 import com.ivandroid.todo_list_backend.domain.task.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/task")
@@ -61,5 +58,15 @@ public class TaskConstroller {
         }
 
         throw new RuntimeException("La tarea no fue encontrada");
+    }
+
+    //Endpoint para actulizar una tarea
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<RespuestaTaskDTO> actulizar(@RequestBody @Valid ActualizarTaskDTO datos,
+                                                      @PathVariable Long id){
+        var response = taskService.actualizar(datos, id);
+
+        return ResponseEntity.ok(response);
     }
 }

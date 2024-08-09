@@ -1,9 +1,6 @@
 package com.ivandroid.todo_list_backend.domain.task.service;
 
-import com.ivandroid.todo_list_backend.domain.task.RegistroTaskDTO;
-import com.ivandroid.todo_list_backend.domain.task.RespuestaTaskDTO;
-import com.ivandroid.todo_list_backend.domain.task.Task;
-import com.ivandroid.todo_list_backend.domain.task.TaskRepository;
+import com.ivandroid.todo_list_backend.domain.task.*;
 import com.ivandroid.todo_list_backend.domain.task.validar_registro.IValidarRegistro;
 import com.ivandroid.todo_list_backend.domain.user.User;
 import com.ivandroid.todo_list_backend.domain.user.UserRepository;
@@ -42,6 +39,16 @@ public class TaskService {
         //Se retorna los datos de la entidad guardada
         return new RespuestaTaskDTO(task);
 
+    }
+
+    public RespuestaTaskDTO actualizar(ActualizarTaskDTO datos, Long id){
+        Optional<Task> task = taskRepository.findById(id);
+        if (task.isPresent()){
+            validarRegistroList.forEach(v -> v.validar(new RegistroTaskDTO(datos)));
+            task.get().actualiar(datos);
+            return new RespuestaTaskDTO(task.get());
+        }
+        throw new RuntimeException("La tarea no fue encontrada");
     }
 
     private User buscarUser(Long userId) {

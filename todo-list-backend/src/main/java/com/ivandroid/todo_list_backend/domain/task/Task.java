@@ -26,4 +26,10 @@ public class Task {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
+
+    public void actualiar(ActualizarTaskDTO datos){
+        if(datos.title() != null) this.title = datos.title();
+        if(datos.description() != null) this.description = datos.description();
+        if(datos.dueDate() != null) this.dueDate = datos.dueDate();
+    }
 }
