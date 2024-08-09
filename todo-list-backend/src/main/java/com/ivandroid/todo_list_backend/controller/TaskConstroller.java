@@ -2,6 +2,7 @@ package com.ivandroid.todo_list_backend.controller;
 
 import com.ivandroid.todo_list_backend.domain.task.RegistroTaskDTO;
 import com.ivandroid.todo_list_backend.domain.task.RespuestaTaskDTO;
+import com.ivandroid.todo_list_backend.domain.task.Task;
 import com.ivandroid.todo_list_backend.domain.task.TaskRepository;
 import com.ivandroid.todo_list_backend.domain.task.service.TaskService;
 import jakarta.validation.Valid;
@@ -47,5 +48,18 @@ public class TaskConstroller {
                 .map(RespuestaTaskDTO::new);
 
         return ResponseEntity.ok(listaTaks);
+    }
+
+    //Endpoint para mostrar una tarea
+    @GetMapping("/{id}")
+    public ResponseEntity<RespuestaTaskDTO> obtenerUnaTarea(@PathVariable Long id){
+        var task = taskRepository.findById(id);
+
+        if(task.isPresent()){
+            var datosTask = new RespuestaTaskDTO(task.get());
+            return ResponseEntity.ok(datosTask);
+        }
+
+        throw new RuntimeException("La tarea no fue encontrada");
     }
 }
