@@ -69,4 +69,12 @@ public class TaskConstroller {
 
         return ResponseEntity.ok(response);
     }
+
+    //Endpoint para eliminar una tarea
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Task> eliminar(@PathVariable Long id){
+        taskService.eliminar(id);
+        return ResponseEntity.noContent().build();
+    }
 }

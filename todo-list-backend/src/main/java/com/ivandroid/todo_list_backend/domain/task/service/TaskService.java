@@ -4,6 +4,7 @@ import com.ivandroid.todo_list_backend.domain.task.*;
 import com.ivandroid.todo_list_backend.domain.task.validar_registro.IValidarRegistro;
 import com.ivandroid.todo_list_backend.domain.user.User;
 import com.ivandroid.todo_list_backend.domain.user.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,19 @@ public class TaskService {
             task.get().actualiar(datos);
             return new RespuestaTaskDTO(task.get());
         }
-        throw new RuntimeException("La tarea no fue encontrada");
+        throw new RuntimeException("La tarea no fue encontrada.");
+    }
+
+    public void eliminar(Long id){
+        Task task = taskRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Tarea no encontrada."));
+
+        User user = task.getUser();
+        if (user != null) {
+            user.getTasks().remove(task); // Elimina la tarea de la lista en memoria
+        }
+
+        taskRepository.delete(task);
     }
 
     private User buscarUser(Long userId) {
