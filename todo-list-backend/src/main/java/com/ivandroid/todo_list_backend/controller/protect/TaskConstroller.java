@@ -1,4 +1,4 @@
-package com.ivandroid.todo_list_backend.controller;
+package com.ivandroid.todo_list_backend.controller.protect;
 
 import com.ivandroid.todo_list_backend.domain.task.*;
 import com.ivandroid.todo_list_backend.domain.task.service.TaskService;
@@ -15,7 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/api/task")
 public class TaskConstroller {
 
     @Autowired
@@ -63,7 +63,7 @@ public class TaskConstroller {
     //Endpoint para actulizar una tarea
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity<RespuestaTaskDTO> actulizar(@RequestBody @Valid ActualizarTaskDTO datos,
+    public ResponseEntity<RespuestaTaskDTO> actualizar(@RequestBody @Valid ActualizarTaskDTO datos,
                                                       @PathVariable Long id){
         var response = taskService.actualizar(datos, id);
 
