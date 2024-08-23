@@ -37,5 +37,23 @@ public class JwtService {
         return LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.of("-06:00"));
     }
 
-
+    public String getSubject(String token){
+        if (token==null){
+            throw new RuntimeException("El token no puede estar vácio");
+        }
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            DecodedJWT verifier = JWT.require(algorithm)
+                    // specify any specific claim validations
+                    .withIssuer("TodoList by IvanDroid")
+                    // reusable verifier instance
+                    .build()
+                    .verify(token);
+            return verifier.getSubject();
+        } catch (JWTVerificationException exception){
+            // Invalid signature/claims
+            System.out.println(exception.getMessage());
+            throw new RuntimeException("Token no válido: " +exception.getMessage());
+        }
+    }
 }
